@@ -48,10 +48,10 @@ docker build . --tag gerardojunior/tap.api.environment
 
 ```bash
 # in your project folder
-docker run -it --rm -v $(pwd):/usr/share/src -p 1234:80 gerardojunior/tap.api.environment:stable [command]
+docker run -it --rm -v $(pwd):/usr/share/src -p 1234:80 gerardojunior/tap.api.environment:stable [sh command]
 
 # or docker-compose
-docker-compose run api [command]
+docker-compose run api [sh command]
 ```
 ##### With [docker-compose](https://docs.docker.com/compose/)
 
@@ -63,6 +63,10 @@ Create the docker-compose.yml file  in your project folder with:
   api: 
     image: gerardojunior/tap.api.environment:stable
     restart: on-failure
+    volumes:
+      - type: bind
+        source: ./
+        target: /usr/share/src
     ports:
       - 1234:80
     links:
