@@ -18,6 +18,9 @@ ARG DEBUG=false
 ARG XDEBUG_VERSION=2.6.0
 ARG XDEBUG_VERSION_SHA256=b5264cc03bf68fcbb04b97229f96dca505d7b87ec2fb3bd4249896783d29cbdc
 
+ARG COMPOSER_VERISON=1.6.5
+ARG COMPOSER_VERISON_SHA256=67bebe9df9866a795078bb2cf21798d8b0214f2e0b2fd81f2e907a8ef0be3434
+
 
 ENV COMPILE_DEPS .build-deps \
                  dpkg-dev dpkg \
@@ -201,6 +204,16 @@ RUN if [ "$DEBUG" = "true" ] ; then \
           XDEBUG_CONFIG_PORT \
           XDEBUG_CONFIG_IDEKEY
 
+# Download and install composer
+ENV COMPOSER_SOURCE_URL https://github.com/composer/composer/releases/download
+RUN set -xe && \ 
+    curl -L -o composer-${COMPOSER_VERISON}.phar ${COMPOSER_SOURCE_URL}/${COMPOSER_VERISON}/composer.phar && \
+    if [ -n "COMPOSER_VERISON_SHA256" ]; then \
+        echo "${COMPOSER_VERISON_SHA256}  composer-${COMPOSER_VERISON}.phar" | sha256sum -c - \
+    ; fi && \
+    mv composer-${COMPOSER_VERISON}.phar /usr/local/bin/composer && \
+    chmod +x /usr/local/bin/composer && \
+    unset COMPOSER_SOURCE_URL
 
 # Cleanup system
 RUN apk del ${COMPLIE_DEPS} .build-deps && \
@@ -216,7 +229,9 @@ RUN apk del ${COMPLIE_DEPS} .build-deps && \
           PHALCON_VERSION_SHA256 \
           DEBUG \
           XDEBUG_VERSION \
-          XDEBUG_VERSION_SHA256
+          XDEBUG_VERSION_SHA256 \
+          COMPOSER_VERISON \
+          COMPOSER_VERISON_SHA256
 
 # Copy scripts
 COPY ./tools/start.sh /usr/local/bin/start.sh
