@@ -1,4 +1,5 @@
 FROM library/alpine:3.7
+LABEL maintainer="Gerardo Junior <me@gerardo-junior.com>"
 
 # Get installation variables
 ARG PHP_VERSION=7.2.5
