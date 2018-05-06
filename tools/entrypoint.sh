@@ -5,11 +5,7 @@ if [ -e "$(pwd)/composer.json" ]; then
 fi
 
 if [ ! -z $@ ]; then
-    if [ ! -z "$(which $1)" ]; then
-        exec "$@"
-    else
-    	/usr/local/bin/php "$@"
-    fi
+    exec "$@"
 elif [ -d "$(pwd)/public" ]; then
     /usr/local/apache2/bin/httpd -DFOREGROUND
 fi

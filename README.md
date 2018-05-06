@@ -48,10 +48,10 @@ docker build . --tag gerardojunior/tap.api.environment
 
 ```bash
 # in your project folder
-docker run -it --rm -v $(pwd):/usr/share/src -p 1234:80 gerardojunior/tap.api.environment:stable [php command or sh command]
+docker run -it --rm -v $(pwd):/usr/share/src -p 1234:80 gerardojunior/tap.api.environment:stable [command]
 
 # or docker-compose
-docker-compose run api [php command or sh command]
+docker-compose run api [command]
 ```
 ##### With [docker-compose](https://docs.docker.com/compose/)
 
