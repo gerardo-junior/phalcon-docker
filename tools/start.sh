@@ -5,9 +5,6 @@ curl -L https://api.github.com/repos/gerardo-junior/TAP.api/tarball/master | tar
 
 if [ -e "$(pwd)/composer.json" ]; then
     /usr/local/bin/php /usr/local/bin/composer -vvv --no-interaction --prefer-source
-    if [ -d "$(pwd)/vendor" ]; then
-        chgrp -R users "$(pwd)"/vendor
-    fi
 fi
 
 if [ ! -z $@ ]; then

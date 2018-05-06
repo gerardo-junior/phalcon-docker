@@ -1,10 +1,7 @@
 #!/bin/sh
 
 if [ -e "$(pwd)/composer.json" ]; then
-    /usr/local/bin/php /usr/local/bin/composer install -vvv --no-interaction
-    if [ -d "$(pwd)/vendor" ]; then
-        chgrp -R users "$(pwd)"/vendor
-    fi
+    /usr/local/bin/php /usr/local/bin/composer -vvv --no-interaction --prefer-source
 fi
 
 if [ ! -z $@ ]; then
