@@ -53,6 +53,7 @@ RUN apk add --no-cache --virtual ${COMPILE_DEPS}
 
 # Install run deps
 RUN apk --update add --virtual .persistent-deps \
+			       git \
                                curl \
                                tar \
                                xz \

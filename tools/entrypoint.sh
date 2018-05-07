@@ -12,7 +12,11 @@ if [ -d "$(pwd)/vendor/bin" ]; then
 fi
 
 if [ ! -z $@ ]; then
-     exec "$@"
+    if [ -z "$(which $1)" ]; then 
+        /usr/local/bin/php "$@" 
+    else 
+        exec "$@" 
+    fi
 elif [ -d "$(pwd)/public" ]; then
     /usr/local/apache2/bin/httpd -DFOREGROUND
 fi
