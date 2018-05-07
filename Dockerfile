@@ -242,4 +242,4 @@ RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/start.sh
 VOLUME ["/usr/share/src"]
 WORKDIR /usr/share/src
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-EXPOSE 80
+EXPOSE 80 443 8080 

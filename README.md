@@ -23,10 +23,10 @@ Docker image to run [phalcon](https://phalconphp.com/) framework projects
   - [composer](https://getcomposer.org/) 1.6.5
   - [xdebug](https://xdebug.org/) 2.6.0 **only by rebuilding with arg DEBUG=true*
 
-## Installing
+## Come on, do your tests
 
 ```bash
-docker pull gerardojunior/tap.api.environment
+docker pull gerardojunior/tap.api.environment:stable
 ```
 ## How to build
 
