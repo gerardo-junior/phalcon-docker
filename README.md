@@ -48,6 +48,7 @@ docker build . --tag gerardojunior/tap.api.environment
 
 ```bash
 # in your project folder
+
 docker run -it --rm -v $(pwd):/usr/share/src -p 1234:80 gerardojunior/tap.api.environment:stable [sh command]
 
 # or docker-compose
