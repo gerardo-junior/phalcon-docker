@@ -2,7 +2,7 @@
 set -ex
 
 if [ -e "$(pwd)/composer.json" ]; then
-   /usr/local/bin/php /usr/local/bin/composer install -vvv --no-interaction
+    /usr/local/bin/php /usr/local/bin/composer install --no-interaction $(if [ $DEBUG = 'true' ]; then echo '--no-dev'; else '--dev -vvv'; fi)
 fi
 
 if [ -d "$(pwd)/vendor/bin" ]; then
