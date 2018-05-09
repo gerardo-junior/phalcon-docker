@@ -173,7 +173,7 @@ RUN set -xe && \
 ARG XDEBUG_CONFIG_HOST=0.0.0.0
 ARG XDEBUG_CONFIG_PORT=9000
 ARG XDEBUG_CONFIG_IDEKEY="IDEA_XDEBUG"
-RUN if [ "$DEBUG" = "true" ] ; then \
+RUN if $DEBUG; then \
         set -xe && \
         curl -L -o xdebug-${XDEBUG_VERSION}.tgz ${XDEBUG_SOURCE_URL}/xdebug-${XDEBUG_VERSION}.tgz && \
         if [ -n "XDEBUG_VERSION_SHA256" ]; then \
