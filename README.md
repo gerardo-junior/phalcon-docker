@@ -9,19 +9,19 @@ Docker image to run [phalcon](https://phalconphp.com/) framework projects
 ## Tags available
 
 - stable
-  - [php](https://php.net) 7.2.5 
-  - [apache](https://www.apache.org/) 2.4.33
-  - [php mongodb driver](https://docs.mongodb.com/ecosystem/drivers/php/) 1.4.3
-  - [phalcon](https://phalconphp.com/) 3.3.2
-  - [composer](https://getcomposer.org/) 1.6.5
-  - [xdebug](https://xdebug.org/) 2.6.0 **only by rebuilding with arg DEBUG=true*
+  - [php](https://php.net): 7.2.5 
+  - [apache](https://www.apache.org/): 2.4.33
+  - [php mongodb driver](https://docs.mongodb.com/ecosystem/drivers/php/): 1.4.3
+  - [phalcon](https://phalconphp.com/): 3.3.2
+  - [composer](https://getcomposer.org/): 1.6.5
+  - [xdebug](https://xdebug.org/): 2.6.0 **only by rebuilding with arg DEBUG=true*
 - latest
-  - [php](https://php.net) 7.2.5 
-  - [apache](https://www.apache.org/) 2.4.33
-  - [php mongodb driver](https://docs.mongodb.com/ecosystem/drivers/php/) 1.4.3
-  - [phalcon](https://phalconphp.com/) 3.3.2
-  - [composer](https://getcomposer.org/) 1.6.5
-  - [xdebug](https://xdebug.org/) 2.6.0 **only by rebuilding with arg DEBUG=true*
+  - [php](https://php.net): 7.2.5 
+  - [apache](https://www.apache.org/): 2.4.33
+  - [php mongodb driver](https://docs.mongodb.com/ecosystem/drivers/php/): 1.4.3
+  - [phalcon](https://phalconphp.com/): 3.3.2
+  - [composer](https://getcomposer.org/): 1.6.5
+  - [xdebug](https://xdebug.org/): 2.6.0 **only by rebuilding with arg DEBUG=true*
 
 ## Come on, do your tests
 
