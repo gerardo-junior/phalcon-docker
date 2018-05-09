@@ -9,7 +9,7 @@ if [ -d "$(pwd)/vendor/bin" ]; then
     export PATH=$PATH:$(pwd)/vendor/bin
 fi
 
-if [ ! -z $@ ]; then
+if [ ! -z "$@" ]; then
     exec "$@" 
 elif [ -d "$(pwd)/public" ]; then
     # Apache gets grumpy about PID files pre-existing
