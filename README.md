@@ -4,7 +4,7 @@
 
 Docker image to run [phalcon](https://phalconphp.com/) framework projects
 
-> The project must be in the **/usr/local/src** with "public" folder container folder and will be available on port **:80** of the container
+> The project must be in the **/usr/local/src** (with "public" folder) folder container folder and will be available on port **:80** of the container
 
 ## Tags available
 
@@ -49,9 +49,6 @@ docker build . --tag gerardojunior/tap.api.environment
 ```bash
 # in your project folder
 docker run -it --rm -v $(pwd):/usr/share/src -p 1234:80 gerardojunior/tap.api.environment:stable [sh command]
-
-# or docker-compose
-docker-compose run api [sh command]
 ```
 ##### With [docker-compose](https://docs.docker.com/compose/)
 
@@ -100,6 +97,7 @@ volumes:
  
 ```bash
 docker run -it --rm gerardojunior/tap.api.environment /bin/sh
+
 # or with docker-compose
 docker-compose run api /bin/sh
 ```
