@@ -106,7 +106,7 @@ RUN set -xe && \
     cd php-${PHP_VERSION} && \
     mkdir -p /usr/local/etc/php/conf.d && \
     export CFLAGS="-fstack-protector-strong -fpic -fpie -O2" && \
-    export CPPFLAGS="-fstack-protector-strong -fpic -fpie -02" && \
+    export CPPFLAGS=$CFLAGS && \
     export LDFLAGS="-Wl,-O1 -Wl,--hash-style=both -pie" && \ 
     sh ./configure --build="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
                    --with-apxs2="/usr/local/apache2/bin/apxs" \
@@ -163,7 +163,7 @@ RUN set -xe && \
 	; fi && \
     tar -xzf phalcon-${PHALCON_VERSION}.tar.gz && \
     cd ./cphalcon-${PHALCON_VERSION}/build/ && \
-    sh ./install \
+    sh ./install safe \
     cd ../../ && \
     echo -e "[phalcon] \n" \
             "extension = $(find /usr/local/lib/php/extensions/ -name phalcon.so)" > /usr/local/etc/php/conf.d/phalcon.ini
