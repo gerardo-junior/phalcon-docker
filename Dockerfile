@@ -106,7 +106,7 @@ RUN set -xe && \
     cd php-${PHP_VERSION} && \
     mkdir -p /usr/local/etc/php/conf.d && \
     export CFLAGS="-fstack-protector-strong -fpic -fpie -O2" && \
-    export CPPFLAGS="-fstack-protector-strong -fpic -fpie -02" && \
+    export CPPFLAGS=$CFLAGS && \
     export LDFLAGS="-Wl,-O1 -Wl,--hash-style=both -pie" && \ 
     sh ./configure --build="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
                    --with-apxs2="/usr/local/apache2/bin/apxs" \
