@@ -59,7 +59,6 @@ RUN apk add --no-cache --virtual ${COMPILE_DEPS}
 
 # Install run deps
 RUN apk --update add --virtual .persistent-deps \
-                               git \
                                curl \
                                tar \
                                xz \
@@ -69,6 +68,10 @@ RUN cd /tmp
 
 # Create project directory
 RUN mkdir -p /usr/share/src
+
+# Create user www-data
+RUN addgroup www-data && \
+    adduser -G www-data -s /bin/sh -D www-data
 
 # Compile and install apache
 RUN set -xe && \
@@ -168,6 +171,15 @@ RUN set -xe && \
     echo -e "[phalcon] \n" \
             "extension = $(find /usr/local/lib/php/extensions/ -name phalcon.so)" > /usr/local/etc/php/conf.d/phalcon.ini
 
+# Download and install composer
+RUN set -xe && \ 
+    curl -L -o composer-${COMPOSER_VERISON}.phar ${COMPOSER_SOURCE_URL}/${COMPOSER_VERISON}/composer.phar && \
+    if [ -n "COMPOSER_VERISON_SHA256" ]; then \
+        echo "${COMPOSER_VERISON_SHA256}  composer-${COMPOSER_VERISON}.phar" | sha256sum -c - \
+    ; fi && \
+    mv composer-${COMPOSER_VERISON}.phar /usr/local/bin/composer && \
+    chmod +x /usr/local/bin/composer
+
 # Compile, install and configure XDebug php extension
 ARG XDEBUG_CONFIG_HOST=0.0.0.0
 ARG XDEBUG_CONFIG_PORT=9000
@@ -200,17 +212,9 @@ RUN set -xe && \
           XDEBUG_CONFIG_PORT \
           XDEBUG_CONFIG_IDEKEY
 
-# Download and install composer
-RUN set -xe && \ 
-    curl -L -o composer-${COMPOSER_VERISON}.phar ${COMPOSER_SOURCE_URL}/${COMPOSER_VERISON}/composer.phar && \
-    if [ -n "COMPOSER_VERISON_SHA256" ]; then \
-        echo "${COMPOSER_VERISON_SHA256}  composer-${COMPOSER_VERISON}.phar" | sha256sum -c - \
-    ; fi && \
-    mv composer-${COMPOSER_VERISON}.phar /usr/local/bin/composer && \
-    chmod +x /usr/local/bin/composer
-
 # Cleanup system
-RUN apk del ${COMPLIE_DEPS} .build-deps && \
+RUN set -xe && \
+    apk del ${COMPLIE_DEPS} .build-deps && \
     rm -Rf /var/cache/apk/* /tmp/* && \
     unset COMPLIE_DEPS \
           HTTPD_VERSION \
@@ -235,7 +239,8 @@ RUN apk del ${COMPLIE_DEPS} .build-deps && \
 # Copy scripts
 COPY ./tools/start.sh /usr/local/bin/start.sh
 COPY ./tools/entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/start.sh
+RUN set -xe && \
+    chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/start.sh
 
 # Set project directory
 VOLUME ["/usr/share/src"]
