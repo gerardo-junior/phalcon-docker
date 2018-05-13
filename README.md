@@ -33,14 +33,12 @@ docker pull gerardojunior/tap.api.environment:stable
 to build the image you need install the [docker engine](https://www.docker.com/) only
 
 > You can try building with different versions of software with docker args, for example: PHP_VERISON=7.2.5
-
-> you can install with [xdebug](https://xdebug.org/) with the argument: DEBUG=true
-
 ```bash
 git clone https://github.com/gerardo-junior/tap.api.environment.git
 cd tap.api.environment
 docker build . --tag gerardojunior/tap.api.environment
 ```
+> you can install with [xdebug](https://xdebug.org/) with the argument: DEBUG=true
 
 ## How to use
 
