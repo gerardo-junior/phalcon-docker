@@ -52,16 +52,17 @@ ENV COMPILE_DEPS .build-deps \
                 apr-dev \
                 apr-util-dev \
                 apr-util-ldap \
-                perl
+                perl \
+                tar \
+                xz
 
 # Install compile deps
 RUN apk add --no-cache --virtual ${COMPILE_DEPS}
 
 # Install run deps
 RUN apk --update add --virtual .persistent-deps \
+                               sudo \
                                curl \
-                               tar \
-                               xz \
                                libressl 
 # Enter in tmp folder
 RUN cd /tmp
@@ -70,8 +71,10 @@ RUN cd /tmp
 RUN mkdir -p /usr/share/src
 
 # Create user www-data
-RUN addgroup www-data && \
-    adduser -G www-data -s /bin/sh -D www-data
+RUN set -xe && \
+    addgroup www-data && \
+    adduser -G www-data -s /bin/sh -D www-data && \
+    echo "www-data ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/default
 
 # Compile and install apache
 RUN set -xe && \
@@ -128,7 +131,7 @@ RUN set -xe && \
 	make install && \
 	find /usr/local/bin /usr/local/sbin -type f -executable -exec strip --strip-all '{}' + || true && \
     make clean && \
-    mv php.ini-development /usr/local/etc/php/php.ini && \
+    mv php.ini-production /usr/local/etc/php/php.ini && \
     cd .. && \
     runDeps="$( scanelf --needed --nobanner --format '%n#p' --recursive /usr/local \
                 | tr ',' '\n' \
@@ -239,11 +242,11 @@ RUN set -xe && \
 # Copy scripts
 COPY ./tools/start.sh /usr/local/bin/start.sh
 COPY ./tools/entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN set -xe && \
-    chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/start.sh
 
 # Set project directory
 VOLUME ["/usr/share/src"]
 WORKDIR /usr/share/src
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-EXPOSE 80 443 8080 
+USER www-data
+EXPOSE 80 8080
