@@ -18,7 +18,7 @@ ARG PHALCON_VERSION=3.3.2
 ARG PHALCON_VERSION_SHA256=823fd693a7e9e8999edfd405970a81b7bf731fa28109a64774216fc5f68d2975
 ARG PHALCON_SOURCE_URL=https://github.com/phalcon/cphalcon/archive
 
-ARG DEBUG=true
+ARG DEBUG=false
 ARG XDEBUG_VERSION=2.6.0
 ARG XDEBUG_VERSION_SHA256=b5264cc03bf68fcbb04b97229f96dca505d7b87ec2fb3bd4249896783d29cbdc
 ARG XDEBUG_SOURCE_URL=https://xdebug.org/files
@@ -163,7 +163,7 @@ RUN set -xe && \
 	; fi && \
     tar -xzf phalcon-${PHALCON_VERSION}.tar.gz && \
     cd ./cphalcon-${PHALCON_VERSION}/build/ && \
-    sh ./install safe \
+    sh ./install --arch safe && \
     cd ../../ && \
     echo -e "[phalcon] \n" \
             "extension = $(find /usr/local/lib/php/extensions/ -name phalcon.so)" > /usr/local/etc/php/conf.d/phalcon.ini
