@@ -163,7 +163,7 @@ RUN set -xe && \
 	; fi && \
     tar -xzf phalcon-${PHALCON_VERSION}.tar.gz && \
     cd ./cphalcon-${PHALCON_VERSION}/build/ && \
-    sh ./install \
+    sh ./install safe \
     cd ../../ && \
     echo -e "[phalcon] \n" \
             "extension = $(find /usr/local/lib/php/extensions/ -name phalcon.so)" > /usr/local/etc/php/conf.d/phalcon.ini
