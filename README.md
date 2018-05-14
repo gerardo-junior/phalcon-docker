@@ -2,7 +2,7 @@
 
 [![Docker Automated build](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)](https://hub.docker.com/r/gerardojunior/tap.api.environment)
 
-Docker image to run [phalcon](https://phalconphp.com/) framework projects
+Docker image to run [phalcon](https://phalconphp.com/) framework with [mongodb](https://docs.mongodb.com/ecosystem/drivers/php/) projects
 
 > The project must be in the **/usr/local/src** (with "public" folder) folder container folder and will be available on port **:80** of the container
 
@@ -32,13 +32,13 @@ docker pull gerardojunior/tap.api.environment:stable
 
 to build the image you need install the [docker engine](https://www.docker.com/) only
 
-> You can try building with different versions of software with docker args, for example: PHP_VERISON=7.2.5
+*~ You can try building with different versions of software with docker args, for example: PHP_VERISON=7.2.5 ~*
 ```bash
 git clone https://github.com/gerardo-junior/tap.api.environment.git
 cd tap.api.environment
 docker build . --tag gerardojunior/tap.api.environment
 ```
-> you can install with [xdebug](https://xdebug.org/) with the argument: DEBUG=true
+*~ you can install with [xdebug](https://xdebug.org/) with the argument: DEBUG=true ~*
 
 ## How to use
 
@@ -46,7 +46,7 @@ docker build . --tag gerardojunior/tap.api.environment
 
 ```bash
 # in your project folder
-docker run -it --rm -v $(pwd):/usr/share/src -p 1234:80 gerardojunior/tap.api.environment:stable [command]
+docker run -it --rm -v $(pwd):/usr/share/src -p 1234:80 -p 4321:8080 gerardojunior/tap.api.environment:stable [command]
 ```
 ##### With [docker-compose](https://docs.docker.com/compose/)
 
@@ -64,6 +64,7 @@ Create the docker-compose.yml file  in your project folder with:
         target: /usr/share/src
     ports:
       - 1234:80
+      - 4321:8080
     links:
       - mongodb
     depends_on:
@@ -94,9 +95,10 @@ volumes:
 ## How to enter image shell
  
 ```bash
-docker run -it --rm gerardojunior/tap.api.environment /bin/sh
+docker run -it --rm gerardojunior/tap.api.environment:stable /bin/sh
 
 # or with docker-compose
+
 docker-compose run api /bin/sh
 ```
 
