@@ -74,7 +74,8 @@ RUN mkdir -p /usr/share/src
 RUN set -xe && \
     addgroup www-data && \
     adduser -G www-data -s /bin/sh -D www-data && \
-    echo "www-data ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/default
+    echo "www-data ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/default && \
+    chown -Rf www-data /usr/share/src
 
 # Compile and install apache
 RUN set -xe && \
@@ -218,7 +219,7 @@ RUN set -xe && \
 # Cleanup system
 RUN set -xe && \
     apk del ${COMPLIE_DEPS} .build-deps && \
-    rm -Rf /var/cache/apk/* /tmp/* && \
+    rm -Rf /var/cache/apk/* /tmp/* $HOME/* && \
     unset COMPLIE_DEPS \
           HTTPD_VERSION \
           HTTPD_VERSION_SHA256 \

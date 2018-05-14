@@ -21,4 +21,10 @@ elif [ -d "$(pwd)/public" ]; then
     # Apache gets grumpy about PID files pre-existing
     sudo sh -c 'rm -f /usr/local/apache2/logs/httpd.pid && \
                 /usr/local/apache2/bin/httpd -DFOREGROUND'
+
+else 
+
+    echo "/public folder not found."
+    exit 1
+
 fi
